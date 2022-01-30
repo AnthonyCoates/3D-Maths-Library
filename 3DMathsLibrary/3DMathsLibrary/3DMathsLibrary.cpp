@@ -97,12 +97,23 @@ struct Vector3
 		return 1.0f;
 	}
 
+	int Factorial(int f) // This is a simple factorial function without the need for any external libraries
+	{
+		if (f > 1)
+		{
+			return f * Factorial(f - 1);
+		}
+
+		return 1;
+	}
+
+	// Standard 3D Vector maths functions
 	float Distance(Vector3 v1, Vector3 v2)
 	{
 		float xP = Power(v1.x - v2.x, 2);
 		float yP = Power(v1.y - v2.y, 2);
 		float zP = Power(v1.z - v2.z, 2);
-
+		
 		return HeronSqrt(xP + yP + zP);
 	}
 
