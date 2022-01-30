@@ -64,4 +64,47 @@ struct Vector3
 	{
 		return Vector3(x / f, y / f, z / f);
 	}
+
+	// Standard mathematical functions
+	float HeronSqrt(float s) // This estimates the square root of a float without the need for any external libraries, using the Heron method
+	{
+		float e = s/2;
+
+		for (size_t i = 0; i < 10; i++)
+		{
+			e = (e + s / e) * 0.5;
+		}
+
+		return e;
+	}
+
+	float Power(float n, int exp) // This is a simple power function without the need for any external libraries
+	{
+		if (exp > 0)
+		{
+			for (size_t i = 0; i < exp; i++)
+			{
+				n *= n;
+			}
+
+			return n;
+		}
+		else if (exp < 0)
+		{
+			return 1 / Power(n, -exp);
+		}
+
+		return 1.0f;
+	}
+
+	float Distance(Vector3 v1, Vector3 v2)
+	{
+		float xP = Power(v1.x - v2.x, 2);
+		float yP = Power(v1.y - v2.y, 2);
+		float zP = Power(v1.z - v2.z, 2);
+
+		return HeronSqrt(xP + yP + zP);
+	}
+
+
 };
