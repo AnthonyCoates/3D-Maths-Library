@@ -107,6 +107,23 @@ struct Vector3
 		return 1;
 	}
 
+	float Cos(float c) // This is a simple cosine function without the need for any external libraries
+	{
+		float cos = 1.0f;
+
+		for (size_t i = 1; i < 11; i++)
+		{
+			if (i % 2 > 0)
+			{
+				cos -= (Power(c, i * 2) / Factorial(i * 2));
+			}
+			else
+			{
+				cos += (Power(c, i * 2) / Factorial(i * 2));
+			}
+		}
+	}
+
 	// Standard 3D Vector maths functions
 	float Distance(Vector3 v1, Vector3 v2)
 	{
