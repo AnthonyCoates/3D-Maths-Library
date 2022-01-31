@@ -109,7 +109,10 @@ struct Vector3
 
 	float Cos(float c) // This is a simple cosine function without the need for any external libraries
 	{
+		const float rateDegreeRadian = 0.0174533; // This is the conversion rate between degrees and radians (pi/180)
 		float cos = 1.0f;
+
+		c *= rateDegreeRadian; // Need to convert degrees to radians for the below formula to work
 
 		for (size_t i = 1; i < 11; i++)
 		{
@@ -122,6 +125,8 @@ struct Vector3
 				cos += (Power(c, i * 2) / Factorial(i * 2));
 			}
 		}
+
+		return cos / rateDegreeRadian; // Convert back to degrees for the return
 	}
 
 	// Standard 3D Vector maths functions
