@@ -126,7 +126,7 @@ struct Vector3
 			}
 		}
 
-		return cos / rateDegreeRadian; // Convert back to degrees for the return
+		return cos;
 	}
 
 	// Standard 3D Vector maths functions
