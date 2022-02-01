@@ -9,7 +9,7 @@ float HeronSqrt(float s) // This estimates the square root of a float without th
 
 	for (size_t i = 0; i < 10; i++)
 	{
-		e = (e + s / e) * 0.5;
+		e = (e + s / e) * 0.5f;
 	}
 
 	return e;
@@ -44,6 +44,16 @@ int Factorial(int f) // This is a simple factorial function without the need for
 	return 1;
 }
 
+float Absolute(float a) // This is a simple absolute function without the need for any external libraries
+{
+	if (a < 0.0f)
+	{
+		return -a;
+	}
+
+	return a;
+}
+
 float Cos(float c) // This is a simple cosine function without the need for any external libraries
 {
 	const float rateDegreeRadian = 0.0174533; // This is the conversion rate between degrees and radians (pi/180)
@@ -53,17 +63,62 @@ float Cos(float c) // This is a simple cosine function without the need for any 
 
 	for (size_t i = 1; i < 11; i++)
 	{
+		float x = (Power(c, i * 2) / Factorial(i * 2));
+
 		if (i % 2 > 0)
 		{
-			cos -= (Power(c, i * 2) / Factorial(i * 2));
+			cos -= x;
 		}
 		else
 		{
-			cos += (Power(c, i * 2) / Factorial(i * 2));
+			cos += x;
 		}
 	}
 
 	return cos;
+}
+
+float Sin(float s) // This is a simple sine function without the need for any external libraries
+{
+	const float rateDegreeRadian = 0.0174533; // This is the conversion rate between degrees and radians (pi/180)
+	float sin = 1.0f;
+
+	s *= rateDegreeRadian; // Need to convert degrees to radians for the below formula to work
+
+	for (size_t i = 1; i < 11; i++)
+	{
+		float x = (Power(s, (i * 2) + 1) / Factorial((i * 2) + 1));
+
+		if (i % 2 > 0)
+		{
+			sin -= x;
+		}
+		else
+		{
+			sin += x;
+		}
+	}
+
+	return sin;
+}
+
+float ArcCos(float a) // This is a simple sine function without using Newton's method
+{
+	float delta = 1e-5f;
+	float pi = 3.14f;
+
+	float x = pi * (1 - a) / 2;
+	float last = x;
+
+	x += Cos(x - a) / Sin(x);
+
+	while (Absolute(x - last) > delta)
+	{
+		last = x;
+		x += (Cos(x - a) / Sin(x));
+	}
+
+	return x;
 }
 
 struct Vector3
@@ -132,21 +187,41 @@ struct Vector3
 	// Standard 3D Vector maths functions
 	float Magnitude()
 	{
-		float x2 = Power(this->x, 2);
-		float y2 = Power(this->y, 2);
-		float z2 = Power(this->z, 2);
+		float x2 = Power(x, 2);
+		float y2 = Power(y, 2);
+		float z2 = Power(z, 2);
 
 		return HeronSqrt(x2 + y2 + z2);
 	}
 
 	float Distance(Vector3 v)
 	{
-		float x2 = Power(this->x - v.x, 2);
-		float y2 = Power(this->y - v.y, 2);
-		float z2 = Power(this->z - v.z, 2);
+		float x2 = Power(x - v.x, 2);
+		float y2 = Power(y - v.y, 2);
+		float z2 = Power(z - v.z, 2);
 		
 		return HeronSqrt(x2 + y2 + z2);
 	}
 
+	float Dot(Vector3 v) // Returns the dot product of two vectors
+	{
+		return (x * v.x) + (y * v.y) + (z * v.z);
+	}
 
+	Vector3 Cross(Vector3 v) // Returns the cross product of two vectors
+	{
+		float xC = (y * v.z) - (z * v.y);
+		float yC = (z * v.x) - (x * v.z);
+		float zC = (x * v.y) - (y * v.x);
+
+		return Vector3{ xC, yC, zC };
+	}
+
+	float Angle(Vector3 v) // Returns the angle between this vector and another
+	{
+		float dot = Dot(v);
+		float magM = Magnitude() * v.Magnitude();
+
+		return ArcCos(dot / magM);
+	}
 };
