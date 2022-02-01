@@ -130,11 +130,11 @@ struct Vector3
 	}
 
 	// Standard 3D Vector maths functions
-	float Magnitude(Vector3 v)
+	float Magnitude()
 	{
-		float x2 = Power(v.x, 2);
-		float y2 = Power(v.y, 2);
-		float z2 = Power(v.z, 2);
+		float x2 = Power(this->x, 2);
+		float y2 = Power(this->y, 2);
+		float z2 = Power(this->z, 2);
 
 		return HeronSqrt(x2 + y2 + z2);
 	}
