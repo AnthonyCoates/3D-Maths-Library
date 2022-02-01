@@ -2,6 +2,70 @@
 #include <utility>
 #include <limits.h>
 
+// Standard mathematical functions
+float HeronSqrt(float s) // This estimates the square root of a float without the need for any external libraries, using the Heron method
+{
+	float e = s / 2;
+
+	for (size_t i = 0; i < 10; i++)
+	{
+		e = (e + s / e) * 0.5;
+	}
+
+	return e;
+}
+
+float Power(float n, int exp) // This is a simple power function without the need for any external libraries
+{
+	if (exp > 0)
+	{
+		for (size_t i = 0; i < exp; i++)
+		{
+			n *= n;
+		}
+
+		return n;
+	}
+	else if (exp < 0)
+	{
+		return 1 / Power(n, -exp);
+	}
+
+	return 1.0f;
+}
+
+int Factorial(int f) // This is a simple factorial function without the need for any external libraries
+{
+	if (f > 1)
+	{
+		return f * Factorial(f - 1);
+	}
+
+	return 1;
+}
+
+float Cos(float c) // This is a simple cosine function without the need for any external libraries
+{
+	const float rateDegreeRadian = 0.0174533; // This is the conversion rate between degrees and radians (pi/180)
+	float cos = 1.0f;
+
+	c *= rateDegreeRadian; // Need to convert degrees to radians for the below formula to work
+
+	for (size_t i = 1; i < 11; i++)
+	{
+		if (i % 2 > 0)
+		{
+			cos -= (Power(c, i * 2) / Factorial(i * 2));
+		}
+		else
+		{
+			cos += (Power(c, i * 2) / Factorial(i * 2));
+		}
+	}
+
+	return cos;
+}
+
 struct Vector3
 {
 	float x{};
@@ -65,76 +129,21 @@ struct Vector3
 		return Vector3(x / f, y / f, z / f);
 	}
 
-	// Standard mathematical functions
-	float HeronSqrt(float s) // This estimates the square root of a float without the need for any external libraries, using the Heron method
-	{
-		float e = s/2;
-
-		for (size_t i = 0; i < 10; i++)
-		{
-			e = (e + s / e) * 0.5;
-		}
-
-		return e;
-	}
-
-	float Power(float n, int exp) // This is a simple power function without the need for any external libraries
-	{
-		if (exp > 0)
-		{
-			for (size_t i = 0; i < exp; i++)
-			{
-				n *= n;
-			}
-
-			return n;
-		}
-		else if (exp < 0)
-		{
-			return 1 / Power(n, -exp);
-		}
-
-		return 1.0f;
-	}
-
-	int Factorial(int f) // This is a simple factorial function without the need for any external libraries
-	{
-		if (f > 1)
-		{
-			return f * Factorial(f - 1);
-		}
-
-		return 1;
-	}
-
-	float Cos(float c) // This is a simple cosine function without the need for any external libraries
-	{
-		const float rateDegreeRadian = 0.0174533; // This is the conversion rate between degrees and radians (pi/180)
-		float cos = 1.0f;
-
-		c *= rateDegreeRadian; // Need to convert degrees to radians for the below formula to work
-
-		for (size_t i = 1; i < 11; i++)
-		{
-			if (i % 2 > 0)
-			{
-				cos -= (Power(c, i * 2) / Factorial(i * 2));
-			}
-			else
-			{
-				cos += (Power(c, i * 2) / Factorial(i * 2));
-			}
-		}
-
-		return cos;
-	}
-
 	// Standard 3D Vector maths functions
-	float Distance(Vector3 v1, Vector3 v2)
+	float Magnitude(Vector3 v)
 	{
-		float xP = Power(v1.x - v2.x, 2);
-		float yP = Power(v1.y - v2.y, 2);
-		float zP = Power(v1.z - v2.z, 2);
+		float x2 = Power(v.x, 2);
+		float y2 = Power(v.y, 2);
+		float z2 = Power(v.z, 2);
+
+		return HeronSqrt(x2 + y2 + z2);
+	}
+
+	float Distance(Vector3 v)
+	{
+		float xP = Power(this->x - v.x, 2);
+		float yP = Power(this->y - v.y, 2);
+		float zP = Power(this->z - v.z, 2);
 		
 		return HeronSqrt(xP + yP + zP);
 	}
