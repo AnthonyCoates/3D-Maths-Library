@@ -141,11 +141,11 @@ struct Vector3
 
 	float Distance(Vector3 v)
 	{
-		float xP = Power(this->x - v.x, 2);
-		float yP = Power(this->y - v.y, 2);
-		float zP = Power(this->z - v.z, 2);
+		float x2 = Power(this->x - v.x, 2);
+		float y2 = Power(this->y - v.y, 2);
+		float z2 = Power(this->z - v.z, 2);
 		
-		return HeronSqrt(xP + yP + zP);
+		return HeronSqrt(x2 + y2 + z2);
 	}
 
 
