@@ -174,6 +174,16 @@ struct Vector3
 		return false;
 	}
 
+	bool operator!=(const Vector3& v)
+	{
+		if (x == v.x && y == v.y && z == v.z)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
 	// Operator Overloads - Float
 	Vector3 operator+(const float& f)
 	{
