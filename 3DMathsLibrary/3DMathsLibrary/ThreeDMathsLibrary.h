@@ -21,3 +21,5 @@ extern "C" THREEDMATHSLIBRARY_API float Sin(float s);
 extern "C" THREEDMATHSLIBRARY_API float ArcCos(float a);
 
 extern "C" THREEDMATHSLIBRARY_API struct Vector3;
+
+extern "C" THREEDMATHSLIBRARY_API struct Quaternion;

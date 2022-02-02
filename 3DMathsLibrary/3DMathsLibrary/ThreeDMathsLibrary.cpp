@@ -4,6 +4,7 @@
 #include "ThreeDMathsLibrary.h"
 
 // Standard mathematical functions
+#pragma region StandardFunctions
 float HeronSqrt(float s) // This estimates the square root of a float without the need for any external libraries, using the Heron method
 {
 	float e = s / 2;
@@ -121,6 +122,7 @@ float ArcCos(float a) // This is a simple sine function without using Newton's m
 
 	return x;
 }
+#pragma endregion StandardFunctions
 
 struct Vector3
 {
@@ -251,5 +253,46 @@ struct Vector3
 		float dot = Dot(v);
 
 		return ArcCos(dot);
+	}
+};
+
+struct Quaternion
+{
+	float w{};
+	float x{};
+	float y{};
+	float z{};
+
+	// Constructors
+	Quaternion()
+	{
+		w = 0.0f;
+		x = 0.0f;
+		y = 0.0f;
+		z = 0.0f;
+	}
+
+	Quaternion(float w, float x, float y, float z)
+	{
+		this->w = w;
+		this->x = x;
+		this->y = y;
+		this->z = z;
+	}
+
+	Quaternion(Vector3 v)
+	{
+		w = 0.0f;
+		x = v.x;
+		y = v.y;
+		z = v.z;
+	}
+
+	Quaternion(float w, Vector3 v)
+	{
+		this->w = w;
+		x = v.x;
+		y = v.y;
+		z = v.z;
 	}
 };
