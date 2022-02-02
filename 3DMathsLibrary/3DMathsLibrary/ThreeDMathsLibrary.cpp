@@ -1,6 +1,7 @@
 #include "pch.h"
 #include <utility>
 #include <limits.h>
+#include "ThreeDMathsLibrary.h"
 
 // Standard mathematical functions
 float HeronSqrt(float s) // This estimates the square root of a float without the need for any external libraries, using the Heron method
@@ -163,6 +164,16 @@ struct Vector3
 		return Vector3(x / v.x, y / v.y, z / v.z);
 	}
 
+	bool operator==(const Vector3& v)
+	{
+		if (x == v.x && y == v.y && z == v.z)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	// Operator Overloads - Float
 	Vector3 operator+(const float& f)
 	{
@@ -194,6 +205,11 @@ struct Vector3
 		return HeronSqrt(x2 + y2 + z2);
 	}
 
+	Vector3 Normalise()
+	{
+		return Vector3{x, y, z} / Magnitude();
+	}
+
 	float Distance(Vector3 v)
 	{
 		float x2 = Power(x - v.x, 2);
@@ -205,7 +221,10 @@ struct Vector3
 
 	float Dot(Vector3 v) // Returns the dot product of two vectors
 	{
-		return (x * v.x) + (y * v.y) + (z * v.z);
+		Vector3 v1N = Normalise();
+		Vector3 v2N = v.Normalise();
+
+		return (v1N.x * v2N.x) + (v1N.y * v2N.y) + (v1N.z * v2N.z);
 	}
 
 	Vector3 Cross(Vector3 v) // Returns the cross product of two vectors
@@ -220,8 +239,7 @@ struct Vector3
 	float Angle(Vector3 v) // Returns the angle between this vector and another
 	{
 		float dot = Dot(v);
-		float magM = Magnitude() * v.Magnitude();
 
-		return ArcCos(dot / magM);
+		return ArcCos(dot);
 	}
 };
