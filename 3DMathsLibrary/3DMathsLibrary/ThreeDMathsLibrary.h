@@ -20,25 +20,4 @@ extern "C" THREEDMATHSLIBRARY_API float Sin(float s);
 
 extern "C" THREEDMATHSLIBRARY_API float ArcCos(float a);
 
-extern "C" THREEDMATHSLIBRARY_API struct Vector3
-								{
-									float x;
-									float y;
-									float z;
-
-									Vector3();
-
-									Vector3(float x, float y, float z);
-
-									float Magnitude();
-
-									Vector3 Normalise();
-
-									float Distance(Vector3 v);
-
-									float Dot(Vector3 v);
-
-									Vector3 Cross(Vector3 v);
-
-									float Angle(Vector3 v);
-								};
+extern "C" THREEDMATHSLIBRARY_API struct Vector3;
