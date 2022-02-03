@@ -82,9 +82,10 @@ float Cos(float c) // This is a simple cosine function without the need for any 
 float Sin(float s) // This is a simple sine function without the need for any external libraries
 {
 	const float rateDegreeRadian = 0.0174533; // This is the conversion rate between degrees and radians (pi/180)
-	float sin = 1.0f;
 
 	s *= rateDegreeRadian; // Need to convert degrees to radians for the below formula to work
+
+	float sin = s;
 
 	for (size_t i = 1; i < 11; i++)
 	{
