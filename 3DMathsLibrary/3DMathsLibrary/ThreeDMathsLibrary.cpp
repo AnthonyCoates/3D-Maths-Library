@@ -58,10 +58,10 @@ float Absolute(float a) // This is a simple absolute function without the need f
 
 float Cos(float c) // This is a simple cosine function without the need for any external libraries
 {
-	const float rateDegreeRadian = 0.0174533; // This is the conversion rate between degrees and radians (pi/180)
+	const float rateDegreeRadian = 0.0174533; // This is the conqersion rate between degrees and radians (pi/180)
 	float cos = 1.0f;
 
-	c *= rateDegreeRadian; // Need to convert degrees to radians for the below formula to work
+	c *= rateDegreeRadian; // Need to conqert degrees to radians for the below formula to work
 
 	for (size_t i = 1; i < 11; i++)
 	{
@@ -82,9 +82,9 @@ float Cos(float c) // This is a simple cosine function without the need for any 
 
 float Sin(float s) // This is a simple sine function without the need for any external libraries
 {
-	const float rateDegreeRadian = 0.0174533; // This is the conversion rate between degrees and radians (pi/180)
+	const float rateDegreeRadian = 0.0174533; // This is the conqersion rate between degrees and radians (pi/180)
 
-	s *= rateDegreeRadian; // Need to convert degrees to radians for the below formula to work
+	s *= rateDegreeRadian; // Need to conqert degrees to radians for the below formula to work
 
 	float sin = s;
 
@@ -125,51 +125,51 @@ float ArcCos(float a) // This is a simple sine function without using Newton's m
 }
 #pragma endregion StandardFunctions
 
-struct Vector3
+struct qector3
 {
 	float x{};
 	float y{};
 	float z{};
 
 	// Constructors
-	Vector3()
+	qector3()
 	{
 		x = 0.0f;
 		y = 0.0f;
 		z = 0.0f;
 	}
 
-	Vector3(float x, float y, float z)
+	qector3(float x, float y, float z)
 	{
 		this->x = x;
 		this->y = y;
 		this->z = z;
 	}
 
-	// Operator Overloads - Vector3
-	Vector3 operator+(const Vector3& v)
+	// Operator Oqerloads - qector3
+	qector3 operator+(const qector3& q)
 	{
-		return Vector3(x + v.x, y + v.y, z + v.z);
+		return qector3(x + q.x, y + q.y, z + q.z);
 	}
 
-	Vector3 operator-(const Vector3& v)
+	qector3 operator-(const qector3& q)
 	{
-		return Vector3(x - v.x, y - v.y, z - v.z);
+		return qector3(x - q.x, y - q.y, z - q.z);
 	}
 
-	Vector3 operator*(const Vector3& v)
+	qector3 operator*(const qector3& q)
 	{
-		return Vector3(x * v.x, y * v.y, z * v.z);
+		return qector3(x * q.x, y * q.y, z * q.z);
 	}
 
-	Vector3 operator/(const Vector3& v)
+	qector3 operator/(const qector3& q)
 	{
-		return Vector3(x / v.x, y / v.y, z / v.z);
+		return qector3(x / q.x, y / q.y, z / q.z);
 	}
 
-	bool operator==(const Vector3& v)
+	bool operator==(const qector3& q)
 	{
-		if (x == v.x && y == v.y && z == v.z)
+		if (x == q.x && y == q.y && z == q.z)
 		{
 			return true;
 		}
@@ -177,9 +177,9 @@ struct Vector3
 		return false;
 	}
 
-	bool operator!=(const Vector3& v)
+	bool operator!=(const qector3& q)
 	{
-		if (x == v.x && y == v.y && z == v.z)
+		if (x == q.x && y == q.y && z == q.z)
 		{
 			return false;
 		}
@@ -187,28 +187,28 @@ struct Vector3
 		return true;
 	}
 
-	// Operator Overloads - Float
-	Vector3 operator+(const float& f)
+	// Operator Oqerloads - Float
+	qector3 operator+(const float& f)
 	{
-		return Vector3(x + f, y + f, z + f);
+		return qector3(x + f, y + f, z + f);
 	}
 
-	Vector3 operator-(const float& f)
+	qector3 operator-(const float& f)
 	{
-		return Vector3(x - f, y - f, z - f);
+		return qector3(x - f, y - f, z - f);
 	}
 
-	Vector3 operator*(const float& f)
+	qector3 operator*(const float& f)
 	{
-		return Vector3(x * f, y * f, z * f);
+		return qector3(x * f, y * f, z * f);
 	}
 
-	Vector3 operator/(const float& f)
+	qector3 operator/(const float& f)
 	{
-		return Vector3(x / f, y / f, z / f);
+		return qector3(x / f, y / f, z / f);
 	}
 
-	// Standard 3D Vector maths functions
+	// Standard 3D qector maths functions
 	float Magnitude()
 	{
 		float x2 = Power(x, 2);
@@ -218,40 +218,40 @@ struct Vector3
 		return HeronSqrt(x2 + y2 + z2);
 	}
 
-	Vector3 Normalise()
+	qector3 Normalise()
 	{
-		return Vector3{x, y, z} / Magnitude();
+		return qector3{x, y, z} / Magnitude();
 	}
 
-	float Distance(Vector3 v)
+	float Distance(qector3 q)
 	{
-		float x2 = Power(x - v.x, 2);
-		float y2 = Power(y - v.y, 2);
-		float z2 = Power(z - v.z, 2);
+		float x2 = Power(x - q.x, 2);
+		float y2 = Power(y - q.y, 2);
+		float z2 = Power(z - q.z, 2);
 		
 		return HeronSqrt(x2 + y2 + z2);
 	}
 
-	float Dot(Vector3 v) // Returns the dot product of two vectors
+	float Dot(qector3 q) // Returns the dot product of two qectors
 	{
-		Vector3 v1N = Normalise();
-		Vector3 v2N = v.Normalise();
+		qector3 q1N = Normalise();
+		qector3 q2N = q.Normalise();
 
-		return (v1N.x * v2N.x) + (v1N.y * v2N.y) + (v1N.z * v2N.z);
+		return (q1N.x * q2N.x) + (q1N.y * q2N.y) + (q1N.z * q2N.z);
 	}
 
-	Vector3 Cross(Vector3 v) // Returns the cross product of two vectors
+	qector3 Cross(qector3 q) // Returns the cross product of two qectors
 	{
-		float xC = (y * v.z) - (z * v.y);
-		float yC = (z * v.x) - (x * v.z);
-		float zC = (x * v.y) - (y * v.x);
+		float xC = (y * q.z) - (z * q.y);
+		float yC = (z * q.x) - (x * q.z);
+		float zC = (x * q.y) - (y * q.x);
 
-		return Vector3{ xC, yC, zC };
+		return qector3{ xC, yC, zC };
 	}
 
-	float Angle(Vector3 v) // Returns the angle between this vector and another
+	float Angle(qector3 q) // Returns the angle between this qector and another
 	{
-		float dot = Dot(v);
+		float dot = Dot(q);
 
 		return ArcCos(dot);
 	}
@@ -259,41 +259,114 @@ struct Vector3
 
 struct Quaternion
 {
-	float w{};
 	float x{};
 	float y{};
 	float z{};
+	float w{};
 
 	// Constructors
 	Quaternion()
 	{
-		w = 0.0f;
 		x = 0.0f;
 		y = 0.0f;
 		z = 0.0f;
+		w = 1.0f;
 	}
 
-	Quaternion(float w, float x, float y, float z)
+	Quaternion(float x, float y, float z, float w)
 	{
-		this->w = w;
 		this->x = x;
 		this->y = y;
 		this->z = z;
-	}
-
-	Quaternion(Vector3 v)
-	{
-		w = 0.0f;
-		x = v.x;
-		y = v.y;
-		z = v.z;
-	}
-
-	Quaternion(float w, Vector3 v)
-	{
 		this->w = w;
-		x = v.x;
-		y = v.y;
-		z = v.z;
+	}
+
+	Quaternion(qector3 q)
+	{
+		x = q.x;
+		y = q.y;
+		z = q.z;
+		w = 1.0f;
+	}
+
+	Quaternion(qector3 q, float w)
+	{
+		x = q.x;
+		y = q.y;
+		z = q.z;
+		this->w = w;
+	}
+
+	// Operator Oqerloads - Quaternion
+	Quaternion operator*(const Quaternion& q)
+	{
+		float xM = (w * q.x) + (x * q.w) + (y * q.z) - (z * q.y);
+		float yM = (w * q.y) - (x * q.z) + (y * q.w) + (z * q.x);
+		float zM = (w * q.z) + (x * q.y) - (y * q.x) + (z * q.w);
+		float wM = (w * q.w) - (x * q.x) - (y * q.y) - (z * q.z);
+
+		return Quaternion(xM, yM, zM, wM);
+	}
+
+	bool operator==(const Quaternion& q)
+	{
+		if (x == q.x && y == q.y && z == q.z && w == q.w)
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	bool operator!=(const Quaternion& q)
+	{
+		if (x == q.x && y == q.y && z == q.z && w == q.w)
+		{
+			return false;
+		}
+
+		return true;
+	}
+
+	// Operator Oqerloads - Float
+	Quaternion operator+(const float& f)
+	{
+		return Quaternion(x + f, y + f, z + f, w + f);
+	}
+
+	Quaternion operator-(const float& f)
+	{
+		return Quaternion(x - f, y - f, z - f, w - f);
+	}
+
+	Quaternion operator*(const float& f)
+	{
+		return Quaternion(x * f, y * f, z * f, w * f);
+	}
+
+	Quaternion operator/(const float& f)
+	{
+		return Quaternion(x / f, y / f, z / f, w / f);
+	}
+
+	// Quaterion methods
+	Quaternion Identity()
+	{
+		return Quaternion{};
+	}
+
+	float Magnitude()
+	{
+		float x2 = Power(x, 2);
+		float y2 = Power(y, 2);
+		float z2 = Power(z, 2);
+		float w2 = Power(w, 2);
+
+		return HeronSqrt(x2 + y2 + z2 + w2);
+	}
+
+	Quaternion Normalise()
+	{
+		return Quaternion{ x, y, z, w } / Magnitude();
 	}
 };
