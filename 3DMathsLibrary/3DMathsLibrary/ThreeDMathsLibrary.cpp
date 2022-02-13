@@ -308,6 +308,16 @@ struct Quaternion
 		return Quaternion(xM, yM, zM, wM);
 	}
 
+	Quaternion operator/(const Quaternion& q)
+	{
+		float xD = ((w * q.x) - (x * q.w) - (y * q.z) + (z * q.y)) / (Power(q.w, 2) + Power(q.x, 2) + Power(q.y, 2) + Power(q.z, 2));
+		float yD = ((w * q.y) + (x * q.z) - (y * q.w) - (z * q.x)) / (Power(q.w, 2) + Power(q.x, 2) + Power(q.y, 2) + Power(q.z, 2));
+		float zD = ((w * q.z) - (x * q.y) + (y * q.x) - (z * q.w)) / (Power(q.w, 2) + Power(q.x, 2) + Power(q.y, 2) + Power(q.z, 2));
+		float wD = ((w * q.w) + (x * q.x) + (y * q.y) + (z * q.z)) / (Power(q.w, 2) + Power(q.x, 2) + Power(q.y, 2) + Power(q.z, 2));
+
+		return Quaternion(xD, yD, zD, wD);
+	}
+
 	bool operator==(const Quaternion& q)
 	{
 		if (x == q.x && y == q.y && z == q.z && w == q.w)
@@ -368,5 +378,32 @@ struct Quaternion
 	Quaternion Normalise()
 	{
 		return Quaternion{ x, y, z, w } / Magnitude();
+	}
+
+	float Conjugate()
+	{
+		Quaternion n = Normalise();
+
+		return n.w - n.x - n.y - n.z;
+	}
+
+	Quaternion Inverse()
+	{
+
+	}
+
+	float Dot(Quaternion q)
+	{
+		return x * q.x + y * q.y + z * q.z + w * q.w;
+	}
+
+	float Angle(Quaternion q)
+	{
+		return ArcCos(Dot(q));
+	}
+
+	Quaternion Relative(Quaternion q)
+	{
+		
 	}
 };
