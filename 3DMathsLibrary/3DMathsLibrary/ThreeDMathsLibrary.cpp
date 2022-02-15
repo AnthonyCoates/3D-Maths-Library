@@ -298,6 +298,16 @@ struct Quaternion
 	}
 
 	// Operator Oqerloads - Quaternion
+	Quaternion operator+(const Quaternion& q)
+	{
+		return Quaternion(x + q.x, y + q.y, z + q.z, w + q.w);
+	}
+
+	Quaternion operator-(const Quaternion& q)
+	{
+		return Quaternion(x - q.x, y - q.y, z - q.z, w - q.w);
+	}
+
 	Quaternion operator*(const Quaternion& q)
 	{
 		float xM = (w * q.x) + (x * q.w) + (y * q.z) - (z * q.y);
@@ -403,5 +413,25 @@ struct Quaternion
 	Quaternion Relative(Quaternion q)
 	{
 		return Inverse() * q.Normalise();
+	}
+
+	Quaternion Lerp(Quaternion q, float pct)
+	{
+		Quaternion qN = Normalise();
+		
+		return qN + ((q.Normalise() - qN) * pct);
+	}
+
+	Quaternion Slerp(Quaternion q, float pct)
+	{
+		float theta = Angle(q) * pct;
+		Quaternion qRel = (q.Normalise() - (Normalise() * Dot(q))).Normalise();
+
+		return (Normalise() * Cos(theta)) + (qRel * Sin(theta));
+	}
+
+	Quaternion Nlerp(Quaternion q, float pct)
+	{
+		return Lerp(q, pct).Normalise();
 	}
 };
