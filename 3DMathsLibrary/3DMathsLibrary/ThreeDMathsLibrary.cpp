@@ -255,6 +255,26 @@ struct Vector3
 
 		return ArcCos(dot);
 	}
+
+	Vector3 Lerp(Vector3 v, float pct)
+	{
+		Vector3 vN = Normalise();
+
+		return vN + ((v.Normalise() - vN) * pct);
+	}
+
+	Vector3 Slerp(Vector3 v, float pct)
+	{
+		float theta = Angle(v) * pct;
+		Vector3 vRel = (v.Normalise() - (Normalise() * Dot(v))).Normalise();
+
+		return (Normalise() * Cos(theta)) + (vRel * Sin(theta));
+	}
+
+	Vector3 Nlerp(Vector3 v, float pct)
+	{
+		return Lerp(v, pct).Normalise();
+	}
 };
 
 struct Quaternion
