@@ -21,7 +21,7 @@ float Power(float n, int exp) // This is a simple power function without the nee
 {
 	if (exp > 0)
 	{
-		for (size_t i = 0; i < exp; i++)
+		for (size_t i = 2; i < exp; i++)
 		{
 			n *= n;
 		}
@@ -125,51 +125,51 @@ float ArcCos(float a) // This is a simple sine function without using Newton's m
 }
 #pragma endregion StandardFunctions
 
-struct qector3
+struct Vector3
 {
 	float x{};
 	float y{};
 	float z{};
 
 	// Constructors
-	qector3()
+	Vector3()
 	{
 		x = 0.0f;
 		y = 0.0f;
 		z = 0.0f;
 	}
 
-	qector3(float x, float y, float z)
+	Vector3(float x, float y, float z)
 	{
 		this->x = x;
 		this->y = y;
 		this->z = z;
 	}
 
-	// Operator Oqerloads - qector3
-	qector3 operator+(const qector3& q)
+	// Operator Oqerloads - Vector3
+	Vector3 operator+(const Vector3& v)
 	{
-		return qector3(x + q.x, y + q.y, z + q.z);
+		return Vector3(x + v.x, y + v.y, z + v.z);
 	}
 
-	qector3 operator-(const qector3& q)
+	Vector3 operator-(const Vector3& v)
 	{
-		return qector3(x - q.x, y - q.y, z - q.z);
+		return Vector3(x - v.x, y - v.y, z - v.z);
 	}
 
-	qector3 operator*(const qector3& q)
+	Vector3 operator*(const Vector3& v)
 	{
-		return qector3(x * q.x, y * q.y, z * q.z);
+		return Vector3(x * v.x, y * v.y, z * v.z);
 	}
 
-	qector3 operator/(const qector3& q)
+	Vector3 operator/(const Vector3& v)
 	{
-		return qector3(x / q.x, y / q.y, z / q.z);
+		return Vector3(x / v.x, y / v.y, z / v.z);
 	}
 
-	bool operator==(const qector3& q)
+	bool operator==(const Vector3& v)
 	{
-		if (x == q.x && y == q.y && z == q.z)
+		if (x == v.x && y == v.y && z == v.z)
 		{
 			return true;
 		}
@@ -177,9 +177,9 @@ struct qector3
 		return false;
 	}
 
-	bool operator!=(const qector3& q)
+	bool operator!=(const Vector3& v)
 	{
-		if (x == q.x && y == q.y && z == q.z)
+		if (x == v.x && y == v.y && z == v.z)
 		{
 			return false;
 		}
@@ -188,27 +188,27 @@ struct qector3
 	}
 
 	// Operator Oqerloads - Float
-	qector3 operator+(const float& f)
+	Vector3 operator+(const float& f)
 	{
-		return qector3(x + f, y + f, z + f);
+		return Vector3(x + f, y + f, z + f);
 	}
 
-	qector3 operator-(const float& f)
+	Vector3 operator-(const float& f)
 	{
-		return qector3(x - f, y - f, z - f);
+		return Vector3(x - f, y - f, z - f);
 	}
 
-	qector3 operator*(const float& f)
+	Vector3 operator*(const float& f)
 	{
-		return qector3(x * f, y * f, z * f);
+		return Vector3(x * f, y * f, z * f);
 	}
 
-	qector3 operator/(const float& f)
+	Vector3 operator/(const float& f)
 	{
-		return qector3(x / f, y / f, z / f);
+		return Vector3(x / f, y / f, z / f);
 	}
 
-	// Standard 3D qector maths functions
+	// Standard 3D Vector maths functions
 	float Magnitude()
 	{
 		float x2 = Power(x, 2);
@@ -218,40 +218,40 @@ struct qector3
 		return HeronSqrt(x2 + y2 + z2);
 	}
 
-	qector3 Normalise()
+	Vector3 Normalise()
 	{
-		return qector3{x, y, z} / Magnitude();
+		return Vector3{x, y, z} / Magnitude();
 	}
 
-	float Distance(qector3 q)
+	float Distance(Vector3 v)
 	{
-		float x2 = Power(x - q.x, 2);
-		float y2 = Power(y - q.y, 2);
-		float z2 = Power(z - q.z, 2);
+		float x2 = Power(x - v.x, 2);
+		float y2 = Power(y - v.y, 2);
+		float z2 = Power(z - v.z, 2);
 		
 		return HeronSqrt(x2 + y2 + z2);
 	}
 
-	float Dot(qector3 q) // Returns the dot product of two qectors
+	float Dot(Vector3 v) // Returns the dot product of two Vectors
 	{
-		qector3 q1N = Normalise();
-		qector3 q2N = q.Normalise();
+		Vector3 v1N = Normalise();
+		Vector3 v2N = v.Normalise();
 
-		return (q1N.x * q2N.x) + (q1N.y * q2N.y) + (q1N.z * q2N.z);
+		return (v1N.x * v2N.x) + (v1N.y * v2N.y) + (v1N.z * v2N.z);
 	}
 
-	qector3 Cross(qector3 q) // Returns the cross product of two qectors
+	Vector3 Cross(Vector3 v) // Returns the cross product of two Vectors
 	{
-		float xC = (y * q.z) - (z * q.y);
-		float yC = (z * q.x) - (x * q.z);
-		float zC = (x * q.y) - (y * q.x);
+		float xC = (y * v.z) - (z * v.y);
+		float yC = (z * v.x) - (x * v.z);
+		float zC = (x * v.y) - (y * v.x);
 
-		return qector3{ xC, yC, zC };
+		return Vector3{ xC, yC, zC };
 	}
 
-	float Angle(qector3 q) // Returns the angle between this qector and another
+	float Angle(Vector3 v) // Returns the angle between this Vector and another
 	{
-		float dot = Dot(q);
+		float dot = Dot(v);
 
 		return ArcCos(dot);
 	}
@@ -281,19 +281,19 @@ struct Quaternion
 		this->w = w;
 	}
 
-	Quaternion(qector3 q)
+	Quaternion(Vector3 v)
 	{
-		x = q.x;
-		y = q.y;
-		z = q.z;
+		x = v.x;
+		y = v.y;
+		z = v.z;
 		w = 1.0f;
 	}
 
-	Quaternion(qector3 q, float w)
+	Quaternion(Vector3 v, float w)
 	{
-		x = q.x;
-		y = q.y;
-		z = q.z;
+		x = v.x;
+		y = v.y;
+		z = v.z;
 		this->w = w;
 	}
 
@@ -362,7 +362,7 @@ struct Quaternion
 	// Quaterion methods
 	Quaternion Identity()
 	{
-		return Quaternion{};
+		return Quaternion();
 	}
 
 	float Magnitude()
@@ -380,16 +380,14 @@ struct Quaternion
 		return Quaternion{ x, y, z, w } / Magnitude();
 	}
 
-	float Conjugate()
+	Quaternion Conjugate()
 	{
-		Quaternion n = Normalise();
-
-		return n.w - n.x - n.y - n.z;
+		return Quaternion(-x, -y, -z, w);
 	}
 
 	Quaternion Inverse()
 	{
-
+		return Quaternion(Normalise()).Conjugate();
 	}
 
 	float Dot(Quaternion q)
@@ -404,6 +402,6 @@ struct Quaternion
 
 	Quaternion Relative(Quaternion q)
 	{
-		
+		return Inverse() * q.Normalise();
 	}
 };
